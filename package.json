@@ -1,0 +1,53 @@
+{
+  "name": "@info-esportes/react-boleto-barcode",
+  "version": "0.1.2",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "React component for rendering Interleaved 2 of 5 (ITF) barcodes as SVG, with a helper for Brazilian bank boleto linha digitável conversion.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Info Esportes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Info-Esportes/react-boleto-barcode.git"
+  },
+  "keywords": [
+    "react",
+    "barcode",
+    "itf",
+    "interleaved-2-of-5",
+    "boleto",
+    "svg"
+  ],
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "tsdown": "^0.9.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  }
+}
