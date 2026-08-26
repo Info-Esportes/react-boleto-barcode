@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 #
-# Builds the package and publishes it to:
-#   - a major-version branch (e.g. "0.x"), force-pushed with the latest dist build for
-#     that line on every release within it - what a consumer tracks for "latest 0.y.z".
-#   - an immutable tag (e.g. "v0.1.0") pointing at that same commit - what a consumer
-#     pins to for an exact version.
+# Cuts a release: tags the current commit on main as "vX.Y.Z" and pushes it, which triggers
+# the "Publish" GitHub Actions workflow (build + npm publish + GitHub release). The tag must
+# live on main's history - not on a dist-only commit - because a tag-triggered workflow only
+# runs if the workflow file exists in the pushed ref's own tree, and main is the only place
+# .github/workflows/publish.yml exists.
 #
-# Both contain only dist/, package.json, README.md and LICENSE - no source, no tests,
-# no tooling config.
+# Also force-pushes a dist-only major-version branch (e.g. "0.x"), containing just dist/,
+# package.json, README.md and LICENSE - an additional install channel (e.g.
+# `npm install github:org/repo#0.x`) alongside the npm registry, not required for publishing.
 #
 # Usage: ./scripts/release.sh
 # Must be run from a clean working tree on main.
@@ -37,7 +38,14 @@ if git rev-parse "refs/tags/$tag" >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "Building version $version..."
+main_commit="$(git rev-parse HEAD)"
+
+git tag -a "$tag" -m "Release $version" "$main_commit"
+git push origin "$tag"
+
+echo "Pushed $tag on main - the Publish workflow will build, publish to npm, and create the GitHub release."
+
+echo "Building version $version for the '$release_branch' dist branch..."
 npm run build
 
 staging_dir="$(mktemp -d)"
@@ -56,10 +64,8 @@ rm -rf "$staging_dir"
 
 git add dist package.json README.md LICENSE
 git commit -m "Release $version"
-git tag -a "$tag" -m "Release $version"
 git push --force origin "$release_branch"
-git push origin "$tag"
 
 git checkout main
 
-echo "Published $version to branch '$release_branch' and tag '$tag'."
+echo "Published $version: tag '$tag' (npm, via CI) and branch '$release_branch' (dist-only, via git)."

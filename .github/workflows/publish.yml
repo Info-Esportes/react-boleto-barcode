@@ -22,10 +22,12 @@ jobs:
 
       - run: npm install -g npm@latest
 
-      # The tag commit (created by scripts/release.sh) already contains a built dist/ and
-      # the release-only package.json - no install or build step needed here. No auth token:
-      # npm authenticates via GitHub's OIDC identity once the trusted publisher is configured
-      # on npmjs.com for this repo + workflow filename.
+      # The tag lives on main's history (source, not the dist-only release branch), so it
+      # needs to actually build before publishing. No auth token: npm authenticates via
+      # GitHub's OIDC identity once the trusted publisher is configured on npmjs.com for
+      # this repo + workflow filename.
+      - run: npm ci
+      - run: npm run build
       - run: npm publish --access public --provenance
 
       - run: gh release create "${{ github.ref_name }}" --generate-notes
