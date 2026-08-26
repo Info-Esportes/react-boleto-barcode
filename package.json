@@ -1,6 +1,9 @@
 {
-  "name": "react-boleto-barcode",
-  "version": "0.1.0",
+  "name": "@info-esportes/react-boleto-barcode",
+  "version": "0.1.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "React component for rendering Interleaved 2 of 5 (ITF) barcodes as SVG, with a helper for Brazilian bank boleto linha digitável conversion.",
   "type": "module",
   "license": "MIT",

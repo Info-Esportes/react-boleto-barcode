@@ -1,4 +1,4 @@
-# react-boleto-barcode
+# @info-esportes/react-boleto-barcode
 
 A React component for rendering Interleaved 2 of 5 (ITF) barcodes as SVG, plus a helper for
 converting a Brazilian bank boleto's linha digitável into the código de barras it actually
@@ -7,7 +7,7 @@ encodes.
 ## Install
 
 ```bash
-npm install react-boleto-barcode
+npm install @info-esportes/react-boleto-barcode
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install react-boleto-barcode
 ### Generic barcode
 
 ```tsx
-import { Barcode } from 'react-boleto-barcode';
+import { Barcode } from '@info-esportes/react-boleto-barcode';
 
 <Barcode value="12345678" />;
 ```
@@ -26,7 +26,7 @@ Pass either the 47-digit linha digitável (what most payment APIs return) or the
 código de barras directly - both are accepted:
 
 ```tsx
-import { BoletoBarcode } from 'react-boleto-barcode';
+import { BoletoBarcode } from '@info-esportes/react-boleto-barcode';
 
 <BoletoBarcode value="23790.00124 60202.503219 30123.456706 1 12210000000100" />;
 ```
