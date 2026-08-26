@@ -1,6 +1,6 @@
 {
   "name": "@info-esportes/react-boleto-barcode",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publishConfig": {
     "access": "public"
   },
@@ -8,6 +8,10 @@
   "type": "module",
   "license": "MIT",
   "author": "Info Esportes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Info-Esportes/react-boleto-barcode.git"
+  },
   "keywords": [
     "react",
     "barcode",
